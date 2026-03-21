@@ -1,19 +1,119 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="stylesheet.css">
-  <title>190914test</title>
+  <title>Mirai Works Holdings | 組織図</title>
 </head>
 <body>
-  <h1>TEST</h1>
-  <ul class="flex-list">
-    <li class="li1">item1</li>
-    <li class="li2">item2</li>
-    <li class="li3">item3</li>
-    <li class="li4">item4</li>
-  </ul>
+  <header class="hero">
+    <p class="eyebrow">FICTIONAL COMPANY</p>
+    <h1>Mirai Works Holdings</h1>
+    <p class="hero-text">
+      AIプロダクトを開発する架空企業の組織図です。経営層の下にプロダクト、営業、マーケティング、
+      コーポレート、カスタマーサクセスが連携する構成をひと目で確認できます。
+    </p>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-heading">
+        <p class="section-label">Organization Chart</p>
+        <h2>組織構成</h2>
+      </div>
+
+      <div class="org-chart">
+        <article class="org-card executive-card">
+          <span class="card-tag">Executive</span>
+          <h3>経営陣</h3>
+          <p class="lead">CEO: Rina Goto / COO: Naoki Sato</p>
+          <ul>
+            <li>全社戦略</li>
+            <li>年度予算と投資判断</li>
+            <li>採用・評価方針の決定</li>
+          </ul>
+        </article>
+
+        <div class="org-grid">
+          <article class="org-card product-card">
+            <span class="card-tag">Product</span>
+            <h3>プロダクト本部</h3>
+            <p class="lead">Chief Product Officer: Mei Takahashi</p>
+            <ul class="subteams">
+              <li><strong>Planning</strong><span>ロードマップ / 要件定義</span></li>
+              <li><strong>Design</strong><span>UX設計 / デザインシステム</span></li>
+              <li><strong>Engineering</strong><span>Web開発 / API運用</span></li>
+            </ul>
+          </article>
+
+          <article class="org-card sales-card">
+            <span class="card-tag">Sales</span>
+            <h3>営業部</h3>
+            <p class="lead">Sales Manager: Koji Tanaka</p>
+            <ul>
+              <li>新規商談の創出</li>
+              <li>提案・契約管理</li>
+              <li>代理店連携</li>
+            </ul>
+          </article>
+
+          <article class="org-card marketing-card">
+            <span class="card-tag">Marketing</span>
+            <h3>マーケティング部</h3>
+            <p class="lead">Marketing Lead: Yui Nakamura</p>
+            <ul>
+              <li>広告運用</li>
+              <li>イベント企画</li>
+              <li>コンテンツ制作</li>
+            </ul>
+          </article>
+
+          <article class="org-card corporate-card">
+            <span class="card-tag">Corporate</span>
+            <h3>コーポレート部</h3>
+            <p class="lead">Corporate Director: Haruto Ishikawa</p>
+            <ul class="subteams compact">
+              <li><strong>HR</strong><span>採用 / 評価 / 制度</span></li>
+              <li><strong>Finance</strong><span>予算 / 請求 / 会計</span></li>
+            </ul>
+          </article>
+
+          <article class="org-card success-card">
+            <span class="card-tag">Customer Success</span>
+            <h3>カスタマーサクセス部</h3>
+            <p class="lead">CS Manager: Aki Mori</p>
+            <ul>
+              <li>導入支援</li>
+              <li>オンボーディング</li>
+              <li>継続率改善</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section metrics-section">
+      <div class="section-heading">
+        <p class="section-label">Overview</p>
+        <h2>会社サマリー</h2>
+      </div>
+      <div class="metrics-grid">
+        <article class="metric-card">
+          <span class="metric-value">42</span>
+          <span class="metric-label">社員数</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">6</span>
+          <span class="metric-label">主要部門</span>
+        </article>
+        <article class="metric-card">
+          <span class="metric-value">3</span>
+          <span class="metric-label">プロダクト内チーム</span>
+        </article>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
