@@ -1,19 +1,44 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="stylesheet.css">
-  <title>190914test</title>
+  <title>メモアプリ</title>
 </head>
 <body>
-  <h1>TEST</h1>
-  <ul class="flex-list">
-    <li class="li1">item1</li>
-    <li class="li2">item2</li>
-    <li class="li3">item3</li>
-    <li class="li4">item4</li>
-  </ul>
+  <main class="app">
+    <h1>メモアプリ</h1>
+    <p class="subtitle">ブラウザにメモを保存できます（自動保存）</p>
+
+    <section class="memo-form" aria-label="メモ作成フォーム">
+      <label for="memo-input">新しいメモ</label>
+      <div class="input-row">
+        <textarea id="memo-input" rows="3" placeholder="例: 買い物リストを作る"></textarea>
+        <button id="add-button" type="button">追加</button>
+      </div>
+    </section>
+
+    <section class="memo-list-section" aria-live="polite">
+      <div class="list-header">
+        <h2>メモ一覧</h2>
+        <button id="clear-button" type="button" class="danger">すべて削除</button>
+      </div>
+      <ul id="memo-list" class="memo-list"></ul>
+      <p id="empty-message" class="empty-message">まだメモがありません。</p>
+    </section>
+  </main>
+
+  <template id="memo-item-template">
+    <li class="memo-item">
+      <input class="memo-text" type="text" aria-label="メモ内容">
+      <div class="memo-actions">
+        <button type="button" class="save-button">保存</button>
+        <button type="button" class="delete-button danger">削除</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="script.js" defer></script>
 </body>
 </html>
