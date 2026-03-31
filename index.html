@@ -1,19 +1,160 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="stylesheet.css">
-  <title>190914test</title>
+  <title>Simple Memo App</title>
 </head>
 <body>
-  <h1>TEST</h1>
-  <ul class="flex-list">
-    <li class="li1">item1</li>
-    <li class="li2">item2</li>
-    <li class="li3">item3</li>
-    <li class="li4">item4</li>
-  </ul>
+  <main class="app-shell">
+    <section class="hero">
+      <p class="eyebrow">Simple Memo App</p>
+      <h1>簡単なメモアプリ</h1>
+      <p class="hero-copy">思いついたことをすぐに保存できる、ブラウザだけで動くシンプルなメモアプリです。</p>
+    </section>
+
+    <section class="memo-card" aria-labelledby="memo-form-title">
+      <div class="card-header">
+        <h2 id="memo-form-title">新しいメモ</h2>
+        <p>タイトルと本文を入力して追加できます。メモはブラウザに保存されます。</p>
+      </div>
+
+      <form id="memo-form" class="memo-form">
+        <label class="field">
+          <span>タイトル</span>
+          <input id="memo-title" name="title" type="text" maxlength="40" placeholder="例: 買い物メモ" required>
+        </label>
+
+        <label class="field">
+          <span>内容</span>
+          <textarea id="memo-content" name="content" rows="5" maxlength="300" placeholder="ここにメモを書いてください" required></textarea>
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button">メモを追加</button>
+          <button type="reset" class="secondary-button">クリア</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="memo-card" aria-labelledby="memo-list-title">
+      <div class="card-header list-header">
+        <div>
+          <h2 id="memo-list-title">保存したメモ</h2>
+          <p>追加した順に表示されます。不要になったら削除できます。</p>
+        </div>
+        <button id="clear-all" type="button" class="danger-button">すべて削除</button>
+      </div>
+
+      <p id="empty-state" class="empty-state">まだメモはありません。最初のメモを追加してみましょう。</p>
+      <div id="memo-list" class="memo-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <template id="memo-item-template">
+    <article class="memo-item">
+      <div class="memo-item__body">
+        <h3 class="memo-item__title"></h3>
+        <p class="memo-item__content"></p>
+        <time class="memo-item__date"></time>
+      </div>
+      <button type="button" class="icon-button" aria-label="メモを削除">削除</button>
+    </article>
+  </template>
+
+  <script>
+    const STORAGE_KEY = 'simple-memo-app-items';
+    const memoForm = document.getElementById('memo-form');
+    const memoTitle = document.getElementById('memo-title');
+    const memoContent = document.getElementById('memo-content');
+    const memoList = document.getElementById('memo-list');
+    const emptyState = document.getElementById('empty-state');
+    const clearAllButton = document.getElementById('clear-all');
+    const memoTemplate = document.getElementById('memo-item-template');
+
+    const formatDate = (isoString) => {
+      const date = new Date(isoString);
+      return new Intl.DateTimeFormat('ja-JP', {
+        dateStyle: 'medium',
+        timeStyle: 'short'
+      }).format(date);
+    };
+
+    const loadMemos = () => {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? [];
+      } catch (error) {
+        console.error('Failed to parse memos from localStorage.', error);
+        return [];
+      }
+    };
+
+    let memos = loadMemos();
+
+    const saveMemos = () => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(memos));
+    };
+
+    const toggleEmptyState = () => {
+      const hasMemos = memos.length > 0;
+      emptyState.hidden = hasMemos;
+      clearAllButton.disabled = !hasMemos;
+    };
+
+    const renderMemos = () => {
+      memoList.innerHTML = '';
+
+      memos.forEach((memo) => {
+        const memoNode = memoTemplate.content.firstElementChild.cloneNode(true);
+        memoNode.querySelector('.memo-item__title').textContent = memo.title;
+        memoNode.querySelector('.memo-item__content').textContent = memo.content;
+        memoNode.querySelector('.memo-item__date').textContent = `保存日時: ${formatDate(memo.createdAt)}`;
+        memoNode.querySelector('.icon-button').addEventListener('click', () => {
+          memos = memos.filter((item) => item.id !== memo.id);
+          saveMemos();
+          renderMemos();
+        });
+        memoList.appendChild(memoNode);
+      });
+
+      toggleEmptyState();
+    };
+
+    memoForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const title = memoTitle.value.trim();
+      const content = memoContent.value.trim();
+      if (!title || !content) {
+        return;
+      }
+
+      memos.unshift({
+        id: crypto.randomUUID(),
+        title,
+        content,
+        createdAt: new Date().toISOString()
+      });
+
+      saveMemos();
+      renderMemos();
+      memoForm.reset();
+      memoTitle.focus();
+    });
+
+    clearAllButton.addEventListener('click', () => {
+      if (memos.length === 0) {
+        return;
+      }
+
+      memos = [];
+      saveMemos();
+      renderMemos();
+    });
+
+    renderMemos();
+  </script>
 </body>
 </html>
