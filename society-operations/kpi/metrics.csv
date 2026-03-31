@@ -1,0 +1,8 @@
+metric,owner,target,frequency
+失業率,産業労働局,4.0%未満,monthly
+実質賃金中央値,財政局,前年比+2.0%,quarterly
+医療待機日数,保健医療局,7日以内,monthly
+住宅負担率,財政局,30%以下,quarterly
+犯罪率,司法,前年比-5%,monthly
+CO2排出量,環境インフラ局,前年比-4%,quarterly
+市民信頼度,市民監査院,70%以上,annual
